@@ -55,6 +55,10 @@ def get_complexity_label(val: Any) -> str:
     return "N/A"
 
 # --- API Endpoints ---
+@app.get("/")
+def home():
+    return {"status": "online", "message": "API is running"}
+
 @app.get("/health")
 def health_check():
     return {"status": "online", "service": "code-review-fastapi"}
