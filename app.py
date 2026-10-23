@@ -17,12 +17,13 @@ FASTAPI_CHAT_URL = f"{BACKEND_BASE_URL}/api/chat"
 # Dark theme styling
 st.markdown("""
 <style>
+    /* Adaptive Metric Cards (works in both Light & Dark themes) */
     div[data-testid="stMetric"] {
-        background-color: #1e2430;
-        border: 1px solid #2d3748;
+        background-color: var(--secondary-background-color) !important;
+        border: 1px solid rgba(128, 128, 128, 0.2) !important;
         padding: 12px 14px;
         border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
     div[data-testid="stMetricLabel"] {
         white-space: normal !important;
@@ -31,7 +32,8 @@ st.markdown("""
     div[data-testid="stMetricLabel"] p {
         font-size: 13px !important;
         font-weight: 600 !important;
-        color: #94a3b8 !important;
+        color: var(--text-color) !important;
+        opacity: 0.75;
         margin-bottom: 2px;
         white-space: normal !important;
     }
@@ -42,13 +44,24 @@ st.markdown("""
     div[data-testid="stMetricValue"] div {
         font-size: 19px !important;
         font-weight: 700 !important;
-        color: #f1f5f9 !important;
+        color: var(--text-color) !important;
         white-space: normal !important;
         text-overflow: clip !important;
         overflow: visible !important;
     }
+
+    /* Subheadings: automatically adapts to light or dark background */
+    .section-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text-color) !important;
+        margin-top: 20px;
+        margin-bottom: 12px;
+    }
+
+    /* Diagnostic boxes with readable text in both themes */
     .diagnostic-box {
-        padding: 14px 18px;
+        padding: 12px 16px;
         border-radius: 8px;
         margin-bottom: 12px;
         font-size: 14px;
@@ -56,31 +69,32 @@ st.markdown("""
         border-left: 4px solid;
     }
     .box-danger {
-        background-color: rgba(239, 68, 68, 0.12);
+        background-color: rgba(239, 68, 68, 0.1);
         border-left-color: #ef4444;
-        color: #fca5a5;
+        color: #b91c1c;
     }
     .box-warning {
-        background-color: rgba(245, 158, 11, 0.12);
+        background-color: rgba(245, 158, 11, 0.1);
         border-left-color: #f59e0b;
-        color: #fcd34d;
+        color: #b45309;
     }
     .box-info {
-        background-color: rgba(59, 130, 246, 0.12);
+        background-color: rgba(59, 130, 246, 0.1);
         border-left-color: #3b82f6;
-        color: #93c5fd;
+        color: #1d4ed8;
     }
     .box-success {
-        background-color: rgba(34, 197, 94, 0.12);
+        background-color: rgba(34, 197, 94, 0.1);
         border-left-color: #22c55e;
-        color: #86efac;
+        color: #15803d;
     }
-    .section-title {
-        font-size: 16px;
-        font-weight: 600;
-        color: #e2e8f0;
-        margin-top: 18px;
-        margin-bottom: 10px;
+
+    /* Keep high-contrast text if user explicitly switches to dark mode */
+    @media (prefers-color-scheme: dark) {
+        .box-danger { color: #fca5a5; }
+        .box-warning { color: #fcd34d; }
+        .box-info { color: #93c5fd; }
+        .box-success { color: #86efac; }
     }
 </style>
 """, unsafe_allow_html=True)
